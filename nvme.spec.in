@@ -6,7 +6,11 @@ License: 	GPL-2.0-only
 Group: 		Development/Tools
 URL: 		https://github.com/linux-nvme/nvme-cli/
 Provides:	nvme
+%if 0%{?suse_version}
+Requires(post): util-linux systemd udev
+%else
 Requires(post): util-linux systemd systemd-udev
+%endif
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 %if !0%{?suse_version}
 @REQUIRES@
