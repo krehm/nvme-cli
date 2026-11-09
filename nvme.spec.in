@@ -1,5 +1,10 @@
 Name: 		nvme-cli
+%if 0%{?suse_version}
+# Sort above SUSE's 2.8+19.g<hash> snapshot
+Version: 	@VERSION@+19.ss
+%else
 Version: 	@VERSION@
+%endif
 Release: 	1%{?dist}
 Summary:  	Core nvme tools
 License: 	GPL-2.0-only
