@@ -150,7 +150,8 @@ static int tid_sanitize_addr(struct libnvmf_tid *t)
 		return 0;
 	}
 
-	if (strcmp(t->transport, "tcp") && strcmp(t->transport, "rdma"))
+	if (strcmp(t->transport, "tcp") && strcmp(t->transport, "rdma") &&
+	    strcmp(t->transport, "ss"))
 		return 0;
 
 	if (t->traddr) {

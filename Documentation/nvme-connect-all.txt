@@ -130,6 +130,15 @@ the RDMA network. Port 4420 is used by default:
 --hostnqn=host1-rogue-nqn
 ------------
 +
+* Connect to all records returned by the Discover Controller with IP4 address
+10.150.0.17 over Slingshot (ss), using the host NIC address 10.150.0.19.
+Port 250 is used by default:
++
+------------
+# nvme connect-all --transport=ss --traddr=10.150.0.17 \
+--host-traddr=10.150.0.19
+------------
++
 * Issue a 'nvme connect-all' command using the default system defined NBFT tables:
 +
 -----------

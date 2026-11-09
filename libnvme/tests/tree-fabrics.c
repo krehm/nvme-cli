@@ -602,6 +602,45 @@ static bool test_ctrl_match_fc(void)
 }
 
 /**
+ * test_ctrl_match_ss - Test that we can look up SS controllers
+ *
+ * @return true when all tests have passed. false otherwise.
+ */
+static bool test_ctrl_match_ss(void)
+{
+	bool pass = true;
+	struct ctrl_args reference = {0};
+	struct ctrl_args candidate = {0};
+
+	printf("test_ctrl_match_ss:\n");
+
+	set_ctrl_args(&reference, "ss", "10.150.0.17", "250",
+			"10.150.0.19", NULL, NULL, NULL);
+
+	set_ctrl_args(&candidate, "ss", "10.150.0.17", "250",
+			"10.150.0.19", NULL, NULL, NULL);
+	pass &= ctrl_match("SS", 1, 0, &reference, &candidate, true);
+
+	set_ctrl_args(&candidate, "ss", "10.150.0.17", "250",
+			NULL, NULL, NULL, NULL);
+	pass &= ctrl_match("SS", 1, 1, &reference, &candidate, true);
+
+	set_ctrl_args(&candidate, "ss", "10.150.0.18", "250",
+			NULL, NULL, NULL, NULL);
+	pass &= ctrl_match("SS", 1, 2, &reference, &candidate, false);
+
+	set_ctrl_args(&candidate, "ss", "10.150.0.17", "251",
+			NULL, NULL, NULL, NULL);
+	pass &= ctrl_match("SS", 1, 3, &reference, &candidate, false);
+
+	set_ctrl_args(&candidate, "ss", "10.150.0.17", "250",
+			"10.150.0.20", NULL, NULL, NULL);
+	pass &= ctrl_match("SS", 1, 4, &reference, &candidate, false);
+
+	return pass;
+}
+
+/**
  * test_ctrl_match_rdma - Test that we can look up RDMA controllers
  *
  * @return true when all tests have passed. false otherwise.
@@ -1794,6 +1833,7 @@ int main(int argc, char *argv[])
 	pass &= test_src_addr();
 	pass &= test_ctrl_match_fc();
 	pass &= test_ctrl_match_rdma();
+	pass &= test_ctrl_match_ss();
 	pass &= test_ctrl_match_tcp();
 	pass &= test_ctrl_match_tcp_not_live();
 	pass &= test_ctrl_config_match();

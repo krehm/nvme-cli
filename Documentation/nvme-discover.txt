@@ -150,6 +150,14 @@ Port 4420 is used by default:
 --hostnqn=host1-rogue-nqn
 ------------
 +
+* Query the Discover Controller with IP4 address 10.150.0.17 over Slingshot
+(ss), using the host NIC address 10.150.0.19. Port 250 is used by default:
++
+------------
+# nvme discover --transport=ss --traddr=10.150.0.17 \
+--host-traddr=10.150.0.19
+------------
++
 * Issue a 'nvme discover' command using the default system defined NBFT tables:
 +
 -----------

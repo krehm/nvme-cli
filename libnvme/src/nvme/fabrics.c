@@ -610,6 +610,7 @@ const char * const trtypes[] = {
 	[NVMF_TRTYPE_RDMA]	= "rdma",
 	[NVMF_TRTYPE_FC]	= "fc",
 	[NVMF_TRTYPE_TCP]	= "tcp",
+	[NVMF_TRTYPE_SS]	= "ss",
 	[NVMF_TRTYPE_LOOP]	= "loop",
 };
 
@@ -1408,7 +1409,8 @@ bool traddr_is_hostname(struct libnvme_global_ctx *ctx,
 		return false;
 	if (!strcmp(traddr, "none"))
 		return false;
-	if (strcmp(transport, "tcp") && strcmp(transport, "rdma"))
+	if (strcmp(transport, "tcp") && strcmp(transport, "rdma") &&
+	    strcmp(transport, "ss"))
 		return false;
 
 	return !libnvmf_traddr_is_numeric(traddr);
@@ -2267,6 +2269,7 @@ static int nvmf_connect_disc_entry(struct libnvmf_context *fctx,
 	switch (e->trtype) {
 	case NVMF_TRTYPE_RDMA:
 	case NVMF_TRTYPE_TCP:
+	case NVMF_TRTYPE_SS:
 		switch (e->adrfam) {
 		case NVMF_ADDR_FAMILY_IP4:
 		case NVMF_ADDR_FAMILY_IP6:
@@ -3538,7 +3541,8 @@ static bool dc_entry_is_self(const struct libnvme_ctrl *c,
 	 * by value.
 	 */
 	return (e->trtype == NVMF_TRTYPE_TCP ||
-		e->trtype == NVMF_TRTYPE_RDMA) &&
+		e->trtype == NVMF_TRTYPE_RDMA ||
+		e->trtype == NVMF_TRTYPE_SS) &&
 	       libnvme_ipaddrs_eq(c->traddr, e->traddr);
 }
 
@@ -3755,6 +3759,9 @@ __shr_public const char *libnvmf_get_default_trsvcid(const char *transport,
 	} else if (!strcmp(transport, "rdma")) {
 		/* Default port for NVMe/RDMA controllers */
 		return stringify(NVME_RDMA_IP_PORT);
+	} else if (!strcmp(transport, "ss")) {
+		/* Default port for NVMe/SS controllers */
+		return stringify(NVME_SS_PORT);
 	}
 
 	return NULL;

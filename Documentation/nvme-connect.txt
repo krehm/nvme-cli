@@ -80,6 +80,15 @@ on the IP4 address 192.168.1.3. Port 4420 is used by default:
 # nvme connect --transport=rdma --traddr=192.168.1.3 \
 --nqn=nqn.2014-08.com.example:nvme:nvm-subsystem-sn-d78432
 ------------
++
+* Connect to a subsystem over Slingshot (ss) using the target address
+10.150.0.17 and the host NIC address 10.150.0.19. Port 250 is used by default:
++
+------------
+# nvme connect --transport=ss --traddr=10.150.0.17 \
+--host-traddr=10.150.0.19 \
+--nqn=nqn.2014-08.com.example:nvme:nvm-subsystem-sn-d78432
+------------
 
 SEE ALSO
 --------

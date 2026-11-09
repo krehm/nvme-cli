@@ -1771,7 +1771,7 @@ struct libnvme_ns *libnvme_ctrl_next_ns(struct libnvme_ctrl *c, struct libnvme_n
 		"\n"
 		"    Required:\n"
 		"      subsysnqn (str)  -- Subsystem NQN\n"
-		"      transport (str)  -- Transport type: 'tcp', 'rdma', 'loop', 'fc'\n"
+		"      transport (str)  -- Transport type: 'tcp', 'rdma', 'ss', 'loop', 'fc'\n"
 		"\n"
 		"    Connection (optional):\n"
 		"      traddr (str)       -- Transport address\n"
