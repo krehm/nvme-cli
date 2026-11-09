@@ -9,6 +9,10 @@ Provides:	nvme
 Requires(post): util-linux systemd systemd-udev
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 @REQUIRES@
+%if 0%{?suse_version}
+BuildRequires:	systemd-rpm-macros
+%{?systemd_ordering}
+%endif
 
 %description
 NVMe is a fast, scalable, direct attached storage interface. The nvme
@@ -41,6 +45,11 @@ touch %{buildroot}@SYSCONFDIR@/nvme/hostid
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%if 0%{?suse_version}
+%pre
+%service_add_pre nvmf-autoconnect.service nvmefc-boot-connections.service
+%endif
+
 %post
 if [ $1 -eq 1 ]; then # 1 : This package is being installed for the first time
 	if [ ! -s @SYSCONFDIR@/nvme/hostnqn ]; then
@@ -54,6 +63,17 @@ if [ $1 -eq 1 ]; then # 1 : This package is being installed for the first time
 	systemctl daemon-reload
 	udevadm control --reload-rules && udevadm trigger
 fi
+%if 0%{?suse_version}
+%service_add_post nvmf-autoconnect.service nvmefc-boot-connections.service
+%endif
+
+%if 0%{?suse_version}
+%preun
+%service_del_preun nvmf-autoconnect.service nvmefc-boot-connections.service
+
+%postun
+%service_del_postun nvmf-autoconnect.service nvmefc-boot-connections.service
+%endif
 
 %changelog
 * Tue Dec 17 2019 Simon Schricker <sschricker@suse.de>
