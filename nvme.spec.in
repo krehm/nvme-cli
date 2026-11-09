@@ -1,4 +1,4 @@
-Name: 		nvme
+Name: 		nvme-cli
 Version: 	@VERSION@
 Release: 	1%{?dist}
 Summary:  	Core nvme tools
