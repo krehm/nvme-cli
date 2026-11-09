@@ -62,6 +62,7 @@ OPTIONS
 |rdma|The network fabric is an rdma network (RoCE, iWARP, Infiniband, basic rdma, etc)
 |fc |*WIP* The network fabric is a Fibre Channel network.
 |tcp |The network fabric is a TCP/IP network.
+|ss  |The network fabric is a Slingshot network (IP addressed).
 |loop|Connect to a NVMe over Fabrics target on the local host
 |=================
 
@@ -72,14 +73,15 @@ OPTIONS
 -a <traddr>::
 --traddr=<traddr>::
 	This field specifies the network address of the Discovery Controller.
-	For transports using IP addressing (e.g. rdma) this should be an
+	For transports using IP addressing (e.g. rdma, tcp, ss) this should be an
 	IP-based address (ex. IPv4).
 
 -s <trsvcid>::
 --trsvcid=<trsvcid>::
 	This field specifies the transport service id. For transports using IP
 	addressing (e.g. rdma) this field is the port number. By default, the IP
-	port number for the RDMA transport is 4420.
+	port number for the RDMA transport is 4420. The default for
+	the ss transport is 250.
 
 -w <traddr>::
 --host-traddr=<traddr>::
@@ -228,6 +230,15 @@ the RDMA network. Port 4420 is used by default:
 ------------
 # nvme connect-all --transport=rdma --traddr=192.168.1.3 \
 --hostnqn=host1-rogue-nqn
+------------
++
+* Connect to all records returned by the Discover Controller with IP4 address
+10.150.0.17 over Slingshot (ss), using the host NIC address 10.150.0.19.
+Port 250 is used by default:
++
+------------
+# nvme connect-all --transport=ss --traddr=10.150.0.17 \
+--host-traddr=10.150.0.19
 ------------
 +
 * Issue a 'nvme connect-all' command using the default system defined NBFT tables:

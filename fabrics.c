@@ -371,6 +371,11 @@ static int __discover(nvme_ctrl_t c, struct nvme_fabrics_config *defcfg,
 	return 0;
 }
 
+/* Not defined by libnvme releases before ss support */
+#ifndef NVME_SS_PORT
+#define NVME_SS_PORT	250
+#endif
+
 static char *get_default_trsvcid(const char *transport,
 				 bool discovery_ctrl)
 {
@@ -385,6 +390,9 @@ static char *get_default_trsvcid(const char *transport,
 	} else if (!strcmp(transport, "rdma")) {
 		/* Default port for NVMe/RDMA controllers */
 		return stringify(NVME_RDMA_IP_PORT);
+	} else if (!strcmp(transport, "ss")) {
+		/* Default port for NVMe/SS controllers */
+		return stringify(NVME_SS_PORT);
 	}
 
 	return NULL;
@@ -521,6 +529,7 @@ static int discover_from_json_config_file(nvme_root_t r, nvme_host_t h,
 			/* ignore none fabric transports */
 			if (strcmp(transport, "tcp") &&
 			    strcmp(transport, "rdma") &&
+			    strcmp(transport, "ss") &&
 			    strcmp(transport, "fc"))
 				continue;
 
