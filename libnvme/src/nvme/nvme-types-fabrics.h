@@ -42,6 +42,7 @@
 
 #define NVME_DISC_SUBSYS_NAME	"nqn.2014-08.org.nvmexpress.discovery"
 #define NVME_RDMA_IP_PORT	4420
+#define NVME_SS_PORT		250
 #define NVME_DISC_IP_PORT	8009
 
 /* However the max length of a qualified name is another size */
@@ -179,6 +180,7 @@ struct nvmf_disc_log_entry {
  * @NVMF_TRTYPE_RDMA:		RDMA
  * @NVMF_TRTYPE_FC:		Fibre Channel
  * @NVMF_TRTYPE_TCP:		TCP
+ * @NVMF_TRTYPE_SS:		Slingshot
  * @NVMF_TRTYPE_LOOP:		Intra-host Transport (i.e., loopback), reserved
  *				for host usage.
  * @NVMF_TRTYPE_MAX:		Maximum value for &enum nvmf_trtype
@@ -188,6 +190,7 @@ enum nvmf_trtype {
 	NVMF_TRTYPE_RDMA	= 1,
 	NVMF_TRTYPE_FC		= 2,
 	NVMF_TRTYPE_TCP		= 3,
+	NVMF_TRTYPE_SS		= 4,
 	NVMF_TRTYPE_LOOP	= 254,
 	NVMF_TRTYPE_MAX,
 };

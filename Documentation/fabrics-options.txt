@@ -7,7 +7,7 @@ The following options are common to NVMe over Fabrics commands such as
 -a <traddr>::
 --traddr=<traddr>::
 	Specify the network address of the controller. For transports
-	using IP addressing (e.g. rdma, tcp), this should be an IP address.
+	using IP addressing (e.g. rdma, tcp, ss), this should be an IP address.
 
 --concat::
 	Enable secure concatenation (TCP).
@@ -105,7 +105,7 @@ The following options are common to NVMe over Fabrics commands such as
 -s <trsvcid>::
 --trsvcid=<trsvcid>::
 	Transport service identifier (e.g. TCP/rdma port). Default is 4420
-	for RDMA.
+	for RDMA and 250 for ss.
 
 -T <#>::
 --tos=<#>::
@@ -122,6 +122,7 @@ The following options are common to NVMe over Fabrics commands such as
 |rdma  | RDMA (RoCE, iWARP, InfiniBand)
 |tcp   | TCP/IP
 |fc    | Fibre Channel (*experimental*)
+|ss    | Slingshot (IP addressed, default trsvcid 250)
 |loop  | Local loopback transport
 |=================
 

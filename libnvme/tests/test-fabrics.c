@@ -444,6 +444,7 @@ static bool test_traddr_is_hostname(struct libnvme_global_ctx *ctx)
 	/* Plain IPv4 */
 	TRADDR_TEST("tcp",  "192.168.1.10", false, "IPv4 address (tcp)");
 	TRADDR_TEST("rdma", "192.168.1.10", false, "IPv4 address (rdma)");
+	TRADDR_TEST("ss",   "10.150.0.17",  false, "IPv4 address (ss)");
 
 	/* Plain IPv6 */
 	TRADDR_TEST("tcp", "fe80::1",     false, "IPv6 link-local (no scope)");
@@ -470,6 +471,8 @@ static bool test_traddr_is_hostname(struct libnvme_global_ctx *ctx)
 	TRADDR_TEST("tcp",  "nvme-target",         true, "short hostname");
 	TRADDR_TEST("rdma", "storage.example.com",
 		    true, "FQDN hostname (rdma)");
+
+	TRADDR_TEST("ss",    "storage.example.com", true, "FQDN hostname (ss)");
 
 	/* "none" - reserved keyword, must not be treated as a hostname */
 	TRADDR_TEST("tcp", "none", false, "literal \"none\"");
@@ -576,6 +579,36 @@ static bool test_nvmf_sanitize_addrs(struct libnvme_global_ctx *ctx)
 
 	libnvme_free_ctrl(c);
 
+	/* ss is IP addressed: a hostname is rejected, a numeric traddr is kept. */
+	params.transport = "ss";
+	params.traddr = "storage.example.com";
+	c = NULL;
+	libnvme_create_ctrl(ctx, &params, &c);
+	CHECK(c, "ctrl created with ss hostname traddr");
+	if (!c)
+		return false;
+
+	ret = nvmf_sanitize_addrs(ctx, c);
+	p = ret == -ENVME_CONNECT_TRADDR;
+	CHECK(p, "ss hostname traddr rejected at connect: %d", ret);
+	pass &= p;
+
+	libnvme_free_ctrl(c);
+
+	params.traddr = "10.150.0.17";
+	c = NULL;
+	libnvme_create_ctrl(ctx, &params, &c);
+	CHECK(c, "ctrl created with ss IPv4 traddr");
+	if (!c)
+		return false;
+
+	ret = nvmf_sanitize_addrs(ctx, c);
+	p = !ret && !strcmp(libnvme_ctrl_get_traddr(c), "10.150.0.17");
+	CHECK(p, "ss IPv4 traddr accepted: %d", ret);
+	pass &= p;
+
+	libnvme_free_ctrl(c);
+
 	/* fc: a WWN traddr is left untouched (not an IP transport). */
 	params.transport = "fc";
 	params.traddr = "nn-0x1:pn-0x2";
@@ -616,6 +649,26 @@ static bool test_nvmf_sanitize_addrs(struct libnvme_global_ctx *ctx)
  * unescape_uri — decode percent-encoded characters in a URI fragment
  * -------------------------------------------------------------------------
  */
+static bool test_trtype_ss(void)
+{
+	bool pass = true, p;
+
+	printf("\ntest_trtype_ss:\n");
+
+	p = !strcmp(libnvmf_trtype_str(NVMF_TRTYPE_SS), "ss");
+	CHECK(p, "NVMF_TRTYPE_SS -> \"ss\"");
+	pass &= p;
+	p = !strcmp(libnvmf_trtype_str(NVMF_TRTYPE_LOOP), "loop");
+	CHECK(p, "NVMF_TRTYPE_LOOP still \"loop\"");
+	pass &= p;
+
+	p = !strcmp(libnvmf_get_default_trsvcid("ss", false), "250");
+	CHECK(p, "default trsvcid for ss is 250");
+	pass &= p;
+
+	return pass;
+}
+
 static bool test_unescape_uri(void)
 {
 	char *out;
@@ -1389,6 +1442,7 @@ int main(int argc, char *argv[])
 	test_inet_pton_with_scope(ctx);
 	test_traddr_is_hostname(ctx);
 	test_nvmf_sanitize_addrs(ctx);
+	test_trtype_ss();
 	test_unescape_uri();
 	test_dc_decide(ctx);
 	test_dc_entry_is_self();

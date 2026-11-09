@@ -367,7 +367,8 @@ static int nvmf_resolve_addr(const char *transport, const char *addr, char **res
 	if (!addr)
 		return 0;
 
-	if (!transport || (strcmp(transport, "tcp") && strcmp(transport, "rdma")) ||
+	if (!transport || (strcmp(transport, "tcp") && strcmp(transport, "rdma") &&
+			   strcmp(transport, "ss")) ||
 	    !strcmp(addr, "none") || libnvmf_traddr_is_numeric(addr))
 		goto copy_through;
 

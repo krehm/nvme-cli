@@ -324,7 +324,9 @@ static ctrl_match_t libnvmf_candidate_init(struct libnvme_global_ctx *ctx,
 		return _tcp_match_ctrl;
 	}
 
-	if (shr_streq0(params->transport, "rdma")) {
+	/* ss controllers are IP addressed and have no src_addr */
+	if (shr_streq0(params->transport, "rdma") ||
+	    shr_streq0(params->transport, "ss")) {
 		candidate->addreq = libnvme_ipaddrs_eq;
 		return _libnvmf_tree_ctrl_match;
 	}

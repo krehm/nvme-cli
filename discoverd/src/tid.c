@@ -152,7 +152,8 @@ bool tid_matches_existing(const struct libnvmf_tid *candidate,
 	const char *subsysnqn = libnvmf_tid_get_subsysnqn(candidate);
 	const char *host_traddr = libnvmf_tid_get_host_traddr(candidate);
 	const char *host_iface = libnvmf_tid_get_host_iface(candidate);
-	bool ip = shr_streq0(transport, "tcp") || shr_streq0(transport, "rdma");
+	bool ip = shr_streq0(transport, "tcp") || shr_streq0(transport, "rdma") ||
+		  shr_streq0(transport, "ss");
 
 	if (!shr_streq0(transport, libnvmf_tid_get_transport(existing)))
 		return false;
