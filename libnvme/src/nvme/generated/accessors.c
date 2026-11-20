@@ -271,6 +271,11 @@ __shr_public int libnvme_ctrl_get_tos(const struct libnvme_ctrl *p)
 	return p->cfg.tos;
 }
 
+__shr_public int libnvme_ctrl_get_vni(const struct libnvme_ctrl *p)
+{
+	return p->cfg.vni;
+}
+
 __shr_public long libnvme_ctrl_get_keyring_id(const struct libnvme_ctrl *p)
 {
 	return p->cfg.keyring_id;
@@ -780,6 +785,19 @@ __shr_public bool libnvme_fabric_options_get_trsvcid(
 		const struct libnvme_fabric_options *p)
 {
 	return p->trsvcid;
+}
+
+__shr_public void libnvme_fabric_options_set_vni(
+		struct libnvme_fabric_options *p,
+		bool vni)
+{
+	p->vni = vni;
+}
+
+__shr_public bool libnvme_fabric_options_get_vni(
+		const struct libnvme_fabric_options *p)
+{
+	return p->vni;
 }
 
 /****************************************************************************

@@ -7,6 +7,7 @@
 "ctrl-loss-tmo"
 "fast-io-fail-tmo"
 "tos"
+"vni"
 "duplicate-connect"
 "disable-sqflow"
 "hdr-digest"

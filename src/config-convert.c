@@ -41,6 +41,7 @@ static const struct legacy_key int_keys[] = {
 	{ "ctrl_loss_tmo",    "ctrl-loss-tmo" },
 	{ "fast_io_fail_tmo", "fast-io-fail-tmo" },
 	{ "tos",              "tos" },
+	{ "vni",              "vni" },
 };
 
 static const struct legacy_key bool_keys[] = {

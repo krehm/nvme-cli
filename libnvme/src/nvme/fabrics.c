@@ -1053,6 +1053,7 @@ static const struct libnvme_fabric_options default_supported_options = {
 	.traddr = true,
 	.transport = true,
 	.trsvcid = true,
+	.vni = true,
 };
 
 #define MERGE_CFG_OPTION(c, n, o, d)			\
@@ -1070,6 +1071,7 @@ static void merge_config(struct libnvme_ctrl *c,
 			  NVMF_DEF_CTRL_LOSS_TMO);
 	MERGE_CFG_OPTION(&c->cfg, cfg, fast_io_fail_tmo, 0);
 	MERGE_CFG_OPTION(&c->cfg, cfg, tos, -1);
+	MERGE_CFG_OPTION(&c->cfg, cfg, vni, 0);
 	MERGE_CFG_OPTION(&c->cfg, cfg, keyring_id, 0);
 	MERGE_CFG_OPTION(&c->cfg, cfg, tls_key_id, 0);
 	MERGE_CFG_OPTION(&c->cfg, cfg, tls_configured_key_id, 0);
@@ -1127,6 +1129,7 @@ static void update_config(struct libnvme_ctrl *c,
 			  NVMF_DEF_CTRL_LOSS_TMO);
 	UPDATE_CFG_OPTION(&c->cfg, cfg, fast_io_fail_tmo, 0);
 	UPDATE_CFG_OPTION(&c->cfg, cfg, tos, -1);
+	UPDATE_CFG_OPTION(&c->cfg, cfg, vni, 0);
 	UPDATE_CFG_OPTION(&c->cfg, cfg, keyring_id, 0);
 	UPDATE_CFG_OPTION(&c->cfg, cfg, tls_key_id, 0);
 	UPDATE_CFG_OPTION(&c->cfg, cfg, tls_configured_key_id, 0);
@@ -1587,6 +1590,8 @@ static int build_options(struct libnvme_host *h, struct libnvme_ctrl *c, char **
 			      c->cfg.fast_io_fail_tmo, false)) ||
 	    (strcmp(transport, "loop") &&
 	     add_int_argument(ctx, argstr, tos, c->cfg.tos, true)) ||
+	    (!strcmp(transport, "ss") &&
+	     add_int_argument(ctx, argstr, vni, c->cfg.vni, false)) ||
 	    add_hex_argument(ctx, argstr, keyring, keyring_id, false) ||
 	    (!strcmp(transport, "tcp") &&
 	     add_hex_argument(ctx, argstr, tls_key, key_id, false)) ||
@@ -1781,6 +1786,7 @@ static int __nvmf_supported_options(struct libnvme_global_ctx *ctx)
 		parse_option(ctx, v, traddr);
 		parse_option(ctx, v, transport);
 		parse_option(ctx, v, trsvcid);
+		parse_option(ctx, v, vni);
 	}
 	libnvme_msg(ctx, LIBNVME_LOG_DEBUG, "\n");
 

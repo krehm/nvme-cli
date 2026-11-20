@@ -1789,6 +1789,7 @@ struct libnvme_ns *libnvme_ctrl_next_ns(struct libnvme_ctrl *c, struct libnvme_n
 		"      nr_write_queues (int)        -- Queues reserved for writes only\n"
 		"      nr_poll_queues (int)         -- Queues reserved for polling\n"
 		"      tos (int)                    -- Type of service\n"
+		"      vni (int)                    -- Slingshot VNI (ss only), 0 for default\n"
 		"      keyring_id (int)             -- Keyring ID for key lookup\n"
 		"      tls_key_id (int)             -- TLS PSK key ID\n"
 		"      tls_configured_key_id (int)  -- TLS PSK key ID for connect command\n"

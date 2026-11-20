@@ -87,7 +87,7 @@ TUNABLE (type default, '[Host]', endpoint section, or 'controller =' line):
 
 	nr-io-queues, nr-write-queues, nr-poll-queues, queue-size,
 	keep-alive-tmo, reconnect-delay, ctrl-loss-tmo, fast-io-fail-tmo,
-	tos, duplicate-connect, disable-sqflow, hdr-digest, data-digest
+	tos, vni, duplicate-connect, disable-sqflow, hdr-digest, data-digest
 
 SECURITY ('[Host]' or endpoint section only, never a 'controller =' line):
 

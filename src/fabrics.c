@@ -126,6 +126,8 @@ static struct argconfig_commandline_options nvmf_template[] = {
 		DESC_NVMF_FAST_IO_FAIL_TMO, .old_name = "fast_io_fail_tmo"),
 	OPT_INT("tos", 'T', &nvmf_tmpl.tos,
 		DESC_NVMF_TOS),
+	OPT_INT("vni", 0, &nvmf_tmpl.vni,
+		DESC_NVMF_VNI),
 	OPT_INT("tls_key", 0, &nvmf_tmpl.tls_key_id,
 		DESC_NVMF_TLS_KEY_LEGACY),
 	OPT_FLAG("duplicate-connect", 'D', &nvmf_tmpl.duplicate_connect,
@@ -197,6 +199,10 @@ void nvmf_args_to_params(struct libnvmf_params *params,
 	if (fa->tos != -1) {
 		snprintf(buf, sizeof(buf), "%d", fa->tos);
 		libnvmf_params_set(params, "tos", buf);
+	}
+	if (fa->vni) {
+		snprintf(buf, sizeof(buf), "%d", fa->vni);
+		libnvmf_params_set(params, "vni", buf);
 	}
 	if (fa->duplicate_connect)
 		libnvmf_params_set(params, "duplicate-connect", "true");
@@ -437,6 +443,7 @@ static int set_fabrics_options(struct libnvmf_context *fctx,
 			fa->reconnect_delay, fa->fast_io_fail_tmo);
 	libnvmf_context_set_keep_alive_tmo(fctx, fa->keep_alive_tmo);
 	libnvmf_context_set_tos(fctx, fa->tos);
+	libnvmf_context_set_vni(fctx, fa->vni);
 	libnvmf_context_set_keyring_id(fctx, fa->keyring_id);
 	libnvmf_context_set_tls_key_id(fctx, fa->tls_key_id);
 	libnvmf_context_set_tls_configured_key_id(fctx,

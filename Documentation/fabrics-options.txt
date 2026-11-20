@@ -111,6 +111,13 @@ The following options are common to NVMe over Fabrics commands such as
 --tos=<#>::
 	Type of service value for the connection (TCP).
 
+--vni=<#>::
+	Slingshot VNI (1-65535) used for the connection (ss only). The VNI
+	must match the VNI configured on the target port, and discovery
+	requires it as well. With "connect-all" every connection uses the
+	VNI given on the command line. If not given, the transport default
+	VNI is used.
+
 -t <trtype>::
 --transport=<trtype>::
 	Specify the transport type. Supported values include:

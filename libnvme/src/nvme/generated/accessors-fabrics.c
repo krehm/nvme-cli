@@ -180,6 +180,16 @@ __shr_public int libnvmf_context_get_tos(const struct libnvmf_context *p)
 	return p->ctrl_params.cfg.tos;
 }
 
+__shr_public void libnvmf_context_set_vni(struct libnvmf_context *p, int vni)
+{
+	p->ctrl_params.cfg.vni = vni;
+}
+
+__shr_public int libnvmf_context_get_vni(const struct libnvmf_context *p)
+{
+	return p->ctrl_params.cfg.vni;
+}
+
 __shr_public void libnvmf_context_set_keyring_id(
 		struct libnvmf_context *p,
 		long keyring_id)

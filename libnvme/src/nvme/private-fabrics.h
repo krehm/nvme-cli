@@ -277,6 +277,7 @@ const struct ifaddrs *libnvmf_getifaddrs(struct libnvme_global_ctx *ctx);
  * @host_iface:		Host interface for connection (tcp only)
  * @iface_list:		Interface list (tcp only)
  * @addreq:		Address comparison function (for traddr, host_traddr)
+ * @vni:		Slingshot VNI (0 for the default), compared for ss only
  * @well_known_nqn:	Set to true when @subsysnqn is the well-known NQN
  */
 struct candidate_args {
@@ -286,6 +287,7 @@ struct candidate_args {
 	const char *subsysnqn;
 	const char *host_traddr;
 	const char *host_iface;
+	int vni;
 #ifdef CONFIG_FABRICS
 	const struct ifaddrs *iface_list;
 #endif

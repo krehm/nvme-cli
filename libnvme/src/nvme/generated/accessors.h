@@ -366,6 +366,14 @@ int libnvme_ctrl_get_nr_poll_queues(const struct libnvme_ctrl *p);
 int libnvme_ctrl_get_tos(const struct libnvme_ctrl *p);
 
 /**
+ * libnvme_ctrl_get_vni() - Get vni.
+ * @p: The &struct libnvme_ctrl instance to query.
+ *
+ * Return: The value of the vni field.
+ */
+int libnvme_ctrl_get_vni(const struct libnvme_ctrl *p);
+
+/**
  * libnvme_ctrl_get_keyring_id() - Get keyring_id.
  * @p: The &struct libnvme_ctrl instance to query.
  *
@@ -1053,6 +1061,21 @@ void libnvme_fabric_options_set_trsvcid(
  * Return: The value of the trsvcid field.
  */
 bool libnvme_fabric_options_get_trsvcid(const struct libnvme_fabric_options *p);
+
+/**
+ * libnvme_fabric_options_set_vni() - Set vni.
+ * @p: The &struct libnvme_fabric_options instance to update.
+ * @vni: Value to assign to the vni field.
+ */
+void libnvme_fabric_options_set_vni(struct libnvme_fabric_options *p, bool vni);
+
+/**
+ * libnvme_fabric_options_get_vni() - Get vni.
+ * @p: The &struct libnvme_fabric_options instance to query.
+ *
+ * Return: The value of the vni field.
+ */
+bool libnvme_fabric_options_get_vni(const struct libnvme_fabric_options *p);
 
 /****************************************************************************
  * Accessors for: struct libnvme_global_ctx

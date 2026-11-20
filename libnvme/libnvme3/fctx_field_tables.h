@@ -42,6 +42,7 @@ static const struct fctx_field libnvme_fabrics_config_int_fields[] = {
 	{ "nr_write_queues", _OFF(nr_write_queues) },
 	{ "nr_poll_queues", _OFF(nr_poll_queues) },
 	{ "tos", _OFF(tos) },
+	{ "vni", _OFF(vni) },
 	{ NULL, 0 },
 };
 
@@ -74,6 +75,7 @@ static const char * const libnvme_fabrics_config_keys[] = {
 	"nr_write_queues",
 	"nr_poll_queues",
 	"tos",
+	"vni",
 	"keyring_id",
 	"tls_key_id",
 	"tls_configured_key_id",
