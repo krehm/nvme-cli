@@ -412,6 +412,8 @@ static void apply_param(const char *key, const char *value, void *user_data)
 		cfg->fast_io_fail_tmo = strtol(value, NULL, 0);
 	else if (!strcmp(key, "tos"))
 		cfg->tos = strtol(value, NULL, 0);
+	else if (!strcmp(key, "vni"))
+		cfg->vni = strtol(value, NULL, 0);
 	else if (!strcmp(key, "duplicate-connect")) {
 		if (!shr_parse_bool(value, &bval))
 			cfg->duplicate_connect = bval;

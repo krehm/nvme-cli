@@ -1443,6 +1443,14 @@ int libnvme_ctrl_alloc(struct libnvme_global_ctx *ctx, struct libnvme_subsystem 
 		.trsvcid = trsvcid,
 	};
 
+	/* ss controllers report their VNI as "vni=N" in the address */
+	if (addr && !strcmp(transport, "ss")) {
+		const char *v = strstr(addr, "vni=");
+
+		if (v && (v == addr || v[-1] == ','))
+			params.cfg.vni = strtol(v + 4, NULL, 0);
+	}
+
 	p = NULL;
 	do {
 		c = libnvme_lookup_ctrl(s, &params, p);

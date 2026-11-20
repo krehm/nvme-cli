@@ -43,6 +43,7 @@ static const struct libnvmf_key keys[] = {
 	{ "ctrl-loss-tmo",		LIBNVMF_KEY_INT,	LIBNVMF_KEY_TUNABLE },
 	{ "fast-io-fail-tmo",		LIBNVMF_KEY_INT,	LIBNVMF_KEY_TUNABLE },
 	{ "tos",			LIBNVMF_KEY_INT,	LIBNVMF_KEY_TUNABLE },
+	{ "vni",			LIBNVMF_KEY_INT,	LIBNVMF_KEY_TUNABLE },
 	{ "duplicate-connect",		LIBNVMF_KEY_BOOL,	LIBNVMF_KEY_TUNABLE },
 	{ "disable-sqflow",		LIBNVMF_KEY_BOOL,	LIBNVMF_KEY_TUNABLE },
 	{ "hdr-digest",			LIBNVMF_KEY_BOOL,	LIBNVMF_KEY_TUNABLE },

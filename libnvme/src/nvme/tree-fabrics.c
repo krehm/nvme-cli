@@ -304,6 +304,10 @@ static bool _libnvmf_tree_ctrl_match(struct libnvme_ctrl *c,
 	    !shr_streq0(c->trsvcid, candidate->trsvcid))
 		return false;
 
+	/* Controllers on different VNIs are different connections */
+	if (shr_streq0(c->transport, "ss") && c->cfg.vni != candidate->vni)
+		return false;
+
 	if (candidate->well_known_nqn && !libnvme_ctrl_get_discovery_ctrl(c))
 		return false;
 
@@ -423,6 +427,7 @@ static ctrl_match_t _libnvmf_candidate_init(struct libnvme_global_ctx *ctx,
 	candidate->host_traddr =
 		shr_streqcase0(params->host_traddr, "none") ?
 		NULL : params->host_traddr;
+	candidate->vni = params->cfg.vni;
 
 	if (shr_streq0(params->subsysnqn, NVME_DISC_SUBSYS_NAME)) {
 		/* Since TP8013, the NQN of discovery controllers can be the

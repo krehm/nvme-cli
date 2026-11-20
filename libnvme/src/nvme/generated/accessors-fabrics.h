@@ -236,6 +236,21 @@ void libnvmf_context_set_tos(struct libnvmf_context *p, int tos);
 int libnvmf_context_get_tos(const struct libnvmf_context *p);
 
 /**
+ * libnvmf_context_set_vni() - Set vni.
+ * @p: The &struct libnvmf_context instance to update.
+ * @vni: Value to assign to the vni field.
+ */
+void libnvmf_context_set_vni(struct libnvmf_context *p, int vni);
+
+/**
+ * libnvmf_context_get_vni() - Get vni.
+ * @p: The &struct libnvmf_context instance to query.
+ *
+ * Return: The value of the vni field.
+ */
+int libnvmf_context_get_vni(const struct libnvmf_context *p);
+
+/**
  * libnvmf_context_set_keyring_id() - Set keyring_id.
  * @p: The &struct libnvmf_context instance to update.
  * @keyring_id: Value to assign to the keyring_id field.

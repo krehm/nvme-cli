@@ -27,6 +27,7 @@ struct nvmf_args {
 	int nr_write_queues;
 	int nr_poll_queues;
 	int tos;
+	int vni;
 	long keyring_id;
 	int tls_key_id;
 	long tls_configured_key_id;
@@ -58,6 +59,7 @@ struct nvmf_args {
 #define DESC_NVMF_CTRL_LOSS_TMO		"controller loss timeout period in seconds"
 #define DESC_NVMF_FAST_IO_FAIL_TMO	"fast I/O fail timeout (default off)"
 #define DESC_NVMF_TOS			"type of service"
+#define DESC_NVMF_VNI			"Slingshot VNI (ss transport only, default: transport default)"
 #define DESC_NVMF_KEYRING		"Keyring for TLS key lookup (key id or keyring name)"
 #define DESC_NVMF_TLS_KEY		"TLS key to use (key id or key in interchange format)"
 #define DESC_NVMF_TLS_KEY_LEGACY	"TLS key to use (key id)"

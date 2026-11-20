@@ -928,6 +928,7 @@ static bool test_apply_params(struct libnvme_global_ctx *ctx)
 	/* Hex, matching check_int()'s own base-0 parsing (config-ini.c). */
 	shr_assert(!libnvmf_params_set(params, "nr-io-queues", "0x10"));
 	shr_assert(!libnvmf_params_set(params, "keep-alive-tmo", "30"));
+	shr_assert(!libnvmf_params_set(params, "vni", "10"));
 	shr_assert(!libnvmf_params_set(params, "tls", "true"));
 	shr_assert(!libnvmf_params_set(params, "hdr-digest", "false"));
 	shr_assert(!libnvmf_params_set(params, "persistent", "force"));
@@ -982,6 +983,13 @@ static bool test_apply_params(struct libnvme_global_ctx *ctx)
 		pass = false;
 	} else {
 		printf(" - reset skipped, library default kept [PASS]\n");
+	}
+
+	if (libnvmf_context_get_vni(fctx) != 10) {
+		printf(" - vni applied [FAIL]\n");
+		pass = false;
+	} else {
+		printf(" - vni applied [PASS]\n");
 	}
 
 	if (strcmp(libnvmf_context_get_keyring(fctx), "my-keyring") ||

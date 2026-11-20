@@ -129,6 +129,7 @@ struct linux_passthru_cmd64 {
  * @nr_write_queues:	Number of queues to use for exclusively for writing
  * @nr_poll_queues:	Number of queues to reserve for polling completions
  * @tos:		Type of service
+ * @vni:		Slingshot VNI, 0 for the transport default
  * @keyring_id:		Keyring to store and lookup keys
  * @tls_key_id:		TLS PSK for the connection
  * @tls_configured_key_id: TLS PSK for connect command for the connection
@@ -149,6 +150,7 @@ struct libnvme_fabrics_config { // !generate-dict-table !nested-accessors
 	int nr_write_queues;
 	int nr_poll_queues;
 	int tos;
+	int vni;
 	long keyring_id;
 	long tls_key_id;
 	long tls_configured_key_id;
@@ -432,6 +434,7 @@ struct libnvme_fabric_options { // !generate-accessors
 	bool traddr;
 	bool transport;
 	bool trsvcid;
+	bool vni;
 };
 
 struct libnvme_global_ctx { // !generate-accessors:read=none,write=none,prefix=libnvme !generate-python:alias=GlobalCtx

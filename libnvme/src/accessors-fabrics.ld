@@ -56,6 +56,7 @@ LIBNVMF_ACCESSORS_3 {
 		libnvmf_context_get_traddr;
 		libnvmf_context_get_transport;
 		libnvmf_context_get_trsvcid;
+		libnvmf_context_get_vni;
 		libnvmf_context_set_concat;
 		libnvmf_context_set_connect;
 		libnvmf_context_set_ctrl_loss_tmo;
@@ -80,6 +81,7 @@ LIBNVMF_ACCESSORS_3 {
 		libnvmf_context_set_tls_configured_key_id;
 		libnvmf_context_set_tls_key_id;
 		libnvmf_context_set_tos;
+		libnvmf_context_set_vni;
 		libnvmf_discovery_args_free;
 		libnvmf_discovery_args_get_lsp;
 		libnvmf_discovery_args_get_max_retries;

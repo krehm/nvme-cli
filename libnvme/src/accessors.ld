@@ -50,6 +50,7 @@ LIBNVME_ACCESSORS_3 {
 		libnvme_ctrl_get_transport;
 		libnvme_ctrl_get_trsvcid;
 		libnvme_ctrl_get_unique_discovery_ctrl;
+		libnvme_ctrl_get_vni;
 		libnvme_ctrl_set_discovered;
 		libnvme_ctrl_set_discovery_ctrl;
 		libnvme_ctrl_set_persistent;
@@ -86,6 +87,7 @@ LIBNVME_ACCESSORS_3 {
 		libnvme_fabric_options_get_traddr;
 		libnvme_fabric_options_get_transport;
 		libnvme_fabric_options_get_trsvcid;
+		libnvme_fabric_options_get_vni;
 		libnvme_fabric_options_set_cntlid;
 		libnvme_fabric_options_set_concat;
 		libnvme_fabric_options_set_ctrl_loss_tmo;
@@ -116,6 +118,7 @@ LIBNVME_ACCESSORS_3 {
 		libnvme_fabric_options_set_traddr;
 		libnvme_fabric_options_set_transport;
 		libnvme_fabric_options_set_trsvcid;
+		libnvme_fabric_options_set_vni;
 		libnvme_get_dry_run;
 		libnvme_get_force_4k;
 		libnvme_get_ioctl_probing;
